@@ -1,5 +1,5 @@
 {
   "appId": "com.example.app",
   "appName": "deepmaze",
-  "webDir": "www"
+  "webDir": "www/dist"
 }
