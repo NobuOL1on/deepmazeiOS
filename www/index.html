@@ -15,6 +15,8 @@
       <img src="img/deepmazelogo.svg" alt="DeepMaze Logo"
         style="margin-bottom: 40px; margin-top: 30vh; max-width: 90%; height: auto;">
       <img src="img/startbuttonen.svg" id="startGameButton">
+      <!-- Language Switch Icon -->
+      <img src="img/语言切换button.svg" id="languageSwitchButton" style="cursor: pointer; margin-top: 20px;" alt="Switch Language">
     </div>
   </div>
 
@@ -95,6 +97,10 @@
   </div>
 
   <script type="module" src="scripts/game.js"></script>
+  <script type="module">
+    import { toggleLanguage } from './scripts/language.js';
+    document.getElementById('languageSwitchButton').addEventListener('click', toggleLanguage);
+  </script>
 </body>
 
 </html>
