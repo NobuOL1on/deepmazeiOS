@@ -1,0 +1,24 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="2" width="96" height="96" rx="18" stroke="black" stroke-width="4"/>
+<circle cx="50" cy="30" r="20" fill="black"/>
+<rect x="23" y="59" width="3" height="30" fill="black"/>
+<rect x="26" y="87.5" width="4.5" height="1.5" fill="black"/>
+<path d="M35 59H38L36.5 89H33.5L35 59Z" fill="black"/>
+<path d="M36.5 59H38L42.5 89H41L36.5 59Z" fill="black"/>
+<rect x="35" y="73.25" width="4.5" height="1.5" fill="black"/>
+<rect x="45.5" y="59" width="3" height="30" fill="black"/>
+<rect x="48.5" y="59" width="3" height="1.5" fill="black"/>
+<rect x="48.5" y="73.25" width="3" height="1.5" fill="black"/>
+<path d="M51.5 59V59C53.1569 59 54.5 60.3431 54.5 62V71C54.5 72.6569 53.1569 74 51.5 74V74V59Z" fill="black"/>
+<path d="M51.5 74V74C53.1569 74 54.5 75.3431 54.5 77V89H51.5V74Z" fill="black"/>
+<rect x="69.5" y="59" width="3" height="30" fill="black"/>
+<rect x="72.5" y="59" width="4.5" height="1.5" fill="black"/>
+<rect x="72.5" y="73.25" width="4.5" height="1.5" fill="black"/>
+<rect x="72.5" y="87.5" width="4.5" height="1.5" fill="black"/>
+<rect x="62" y="75.5" width="4.5" height="1.5" fill="black"/>
+<path d="M63.5 59V59C65.1569 59 66.5 60.3431 66.5 62V68H63.5V59Z" fill="black"/>
+<path d="M63.5 77H66.5V86C66.5 87.6569 65.1569 89 63.5 89V89V77Z" fill="black"/>
+<path d="M57.5 62C57.5 60.3431 58.8431 59 60.5 59V59V89V89C58.8431 89 57.5 87.6569 57.5 86V62Z" fill="black"/>
+<rect x="60.5" y="87.5" width="3" height="1.5" fill="black"/>
+<rect x="60.5" y="59" width="3" height="1.5" fill="black"/>
+</svg>

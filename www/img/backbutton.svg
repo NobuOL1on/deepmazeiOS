@@ -1,0 +1,20 @@
+<svg width="70" height="36" viewBox="0 0 70 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="70" height="36" rx="10" fill="black"/>
+<rect x="49" y="3" width="3" height="30" fill="white"/>
+<path d="M55.75 3H58L52 21.975H49.75L55.75 3Z" fill="white"/>
+<path d="M53.125 13.6504H54.625L58 33.0004H56.5L53.125 13.6504Z" fill="white"/>
+<path d="M43 3V3C44.6569 3 46 4.34315 46 6V12H43V3Z" fill="white"/>
+<path d="M43 24H46V30C46 31.6569 44.6569 33 43 33V33V24Z" fill="white"/>
+<path d="M37 6C37 4.34315 38.3431 3 40 3V3V33V33C38.3431 33 37 31.6569 37 30V6Z" fill="white"/>
+<rect x="40" y="31.5" width="3" height="1.5" fill="white"/>
+<rect x="40" y="3" width="3" height="1.5" fill="white"/>
+<rect x="13" y="3" width="3" height="30" fill="white"/>
+<rect x="16" y="3" width="3" height="1.5" fill="white"/>
+<rect x="16" y="17.25" width="3" height="1.5" fill="white"/>
+<rect x="16" y="31.5" width="3" height="1.5" fill="white"/>
+<path d="M19 3V3C20.6569 3 22 4.34315 22 6V15C22 16.6569 20.6569 18 19 18V18V3Z" fill="white"/>
+<path d="M19 18V18C20.6569 18 22 19.3431 22 21V30C22 31.6569 20.6569 33 19 33V33V18Z" fill="white"/>
+<path d="M26.5 3H29.5L28 33H25L26.5 3Z" fill="white"/>
+<path d="M28 3H29.5L34 33H32.5L28 3Z" fill="white"/>
+<rect x="26.5" y="17.25" width="4.5" height="1.5" fill="white"/>
+</svg>

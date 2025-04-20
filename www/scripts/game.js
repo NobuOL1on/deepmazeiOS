@@ -29,6 +29,7 @@ class MazeGame {
     this.startPage = document.getElementById('startPage');
     this.startGameButton = document.getElementById('startGameButton');
     this.pauseButton = document.getElementById('pauseButton');
+    this.modeBackButton = document.getElementById('modeBackButton');
     this.backButton = document.getElementById('backButton');
     this.accelHandler;
 
@@ -214,32 +215,11 @@ class MazeGame {
       this.bindOrientationEvents();
       this.showModeSelect();
       // Once the user approves, can start listening:
-      this.accelHandler = await Motion.addListener('accel', event => {
-        console.log(event);
-      });
+      this.accelHandler = await Motion.addListener('accel', event => { });
     });
     this.challengeModeButton.addEventListener('click', () => this.startGame('challenge'));
     this.infiniteModeButton.addEventListener('click', () => this.startGame('infinite'));
-
-    // 检查设备方向感应API是否可用
-    // try {
-    //   if (window.DeviceOrientationEvent) {
-    //     if (DeviceOrientationEvent.requestPermission) {
-    //       // iOS 13+ 需要请求权限
-    //       this.permissionPrompt.style.display = 'block';
-    //     } else {
-    //       // 其他设备直接开始监听
-    //       this.bindOrientationEvents();
-    //     }
-    //   } else {
-    //     console.warn('DeviceOrientation not supported');
-    //     // 显示提示并提供替代控制方式
-    //     this.showCompatibilityWarning();
-    //   }
-    // } catch (error) {
-    //   console.error('DeviceOrientation initialization error:', error);
-    //   this.showCompatibilityWarning();
-    // }
+    this.modeBackButton.addEventListener('click', () => this.returnToStart());
 
     // 绑定技能槽点击事件
     const slots = document.getElementsByClassName('skill-slot');
@@ -273,25 +253,6 @@ class MazeGame {
     let startX = 0;
     let currentX = 0;
     let currentIndex = 0;
-
-    // 绘制预览小球
-    containers.forEach((container, index) => {
-      const canvas = container.querySelector('.ball-preview');
-      const ctx = canvas.getContext('2d');
-      const ballType = Object.values(this.ballTypes)[index];
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      ctx.arc(
-        canvas.width / 2,
-        canvas.height / 2,
-        ballType.radius * 2,  // 预览时放大显示
-        0,
-        Math.PI * 2
-      );
-      ctx.fillStyle = ballType.color;
-      ctx.fill();
-    });
 
     // 触摸事件处理
     carousel.addEventListener('touchstart', (e) => {
@@ -354,15 +315,17 @@ class MazeGame {
   }
 
   showModeSelect() {
-    this.startGameButton.style.display = 'none';
+    this.startPage.style.display = 'none';
     this.modeSelect.style.display = 'flex';
+    this.modeBackButton.style.display = 'flex';
   }
 
   startGame(mode) {
     this.gameMode = mode;
     this.isPlaying = true;
     this.isGameOver = false;
-    this.startPage.style.display = 'none';
+    this.modeSelect.style.display = 'none';
+    this.modeSelect.style.display = 'none';
     document.getElementById('game-container').style.display = 'flex';
     this.canvas.style.display = 'block';
     document.getElementById('startButton').style.display = 'none';
