@@ -1,4 +1,8 @@
-export function toggleLanguage() {
+import startButtonZH from 'img/start-button-zh.svg';
+import startButtonJA from 'img/start-button-ja.svg';
+import startButtonEN from 'img/start-button-en.svg';
+
+export async function toggleLanguage() {
   const currentLang = document.documentElement.lang;
   const newLang = currentLang === 'en' ? 'zh' : (currentLang === 'zh' ? 'ja' : 'en');
   document.documentElement.lang = newLang;
@@ -6,11 +10,11 @@ export function toggleLanguage() {
   // 更新开始按钮图标
   const startButton = document.getElementById('startGameButton');
   if (newLang === 'zh') {
-    startButton.src = 'img/startbuttonch.svg';
+    startButton.src = startButtonZH;
   } else if (newLang === 'ja') {
-    startButton.src = 'img/startbuttonja.svg';
+    startButton.src = startButtonJA;
   } else {
-    startButton.src = 'img/startbuttonen.svg';
+    startButton.src = startButtonEN;
   }
 
   console.log(`Language switched to: ${newLang}`);
