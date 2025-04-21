@@ -232,6 +232,10 @@ class MazeGame {
 
     // 初始化小球选择器
     this.initBallSelector();
+
+    document.getElementById('shopButton').addEventListener('click', () => {
+      window.location.href = 'shop.html';
+    });
   }
 
   // Stop the acceleration listener
@@ -1746,4 +1750,27 @@ document.addEventListener('DOMContentLoaded', () => {
     errorDiv.innerHTML = '游戏加载失败，请在系统浏览器中打开';
     document.body.appendChild(errorDiv);
   }
+
+  const ballContainers = document.querySelectorAll('.ball-container');
+  let currentBallIndex = 0;
+
+  ballContainers.forEach((container, index) => {
+    container.addEventListener('click', () => {
+      // Hide current ball
+      ballContainers[currentBallIndex].style.display = 'none';
+
+      // Update index to next ball
+      currentBallIndex = (currentBallIndex + 1) % ballContainers.length;
+
+      // Show next ball
+      ballContainers[currentBallIndex].style.display = 'block';
+    });
+  });
+
+  // Initially show only the first ball
+  ballContainers.forEach((container, index) => {
+    if (index !== 0) {
+      container.style.display = 'none';
+    }
+  });
 }); 
