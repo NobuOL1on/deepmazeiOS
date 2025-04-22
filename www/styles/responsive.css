@@ -1,0 +1,40 @@
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  #startPage,
+  #modeSelect {
+    border-radius: 0;
+    box-shadow: none;
+    height: 100vh;
+    aspect-ratio: auto;
+    max-width: 100%;
+  }
+
+  #countdown {
+    font-size: 24px;
+    /* Adjusted for smaller screens */
+  }
+
+  #ballSelector {
+    padding: 0 10px;
+    /* Adjust padding */
+    gap: 10px;
+  }
+
+  .skill-option button {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .skill-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .skill-slot {
+    width: 40px;
+    height: 40px;
+  }
+}
