@@ -1,4 +1,5 @@
 import { Motion } from "@capacitor/motion";
+import { Ball } from "./ball.js";
 
 class MazeGame {
   constructor() {
@@ -16,13 +17,7 @@ class MazeGame {
 
     // 游戏状态
     this.isPlaying = false;
-    this.ball = {
-      x: 0,
-      y: 0,
-      radius: 10,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-    };
+    this.ball = new Ball();
 
     // 重置游戏状态
     this.resetGameState();
@@ -161,30 +156,6 @@ class MazeGame {
     this.skillSelectionLevel = 6; // 每6关触发技能选择
     this.skillSelectionActive = false;
 
-    // 小球类型定义
-    this.ballTypes = {
-      normal: {
-        radius: 10,
-        mass: 1,
-        sensitivity: 1,
-        color: "#000",
-      },
-      heavy: {
-        radius: 11.5, // 大15%
-        mass: 1.15, // 重15%
-        sensitivity: 0.6, // 对重力感应反应更慢30%（原来20%+新增10%）
-        color: "#333",
-      },
-      light: {
-        radius: 5, // 直径是默认的一半
-        mass: 0.5,
-        sensitivity: 1.2, // 对重力感应反应更快
-        color: "#666",
-      },
-    };
-
-    this.selectedBallType = "normal"; // 默认选择普通小球
-
     this.init();
   }
 
@@ -266,7 +237,7 @@ class MazeGame {
       currentIndex = Math.max(0, Math.min(newIndex, 2));
 
       // 更新选中的小球类型
-      this.selectedBallType = Object.keys(this.ballTypes)[currentIndex];
+      this.ball.type = Object.keys(this.ball.types)[currentIndex];
 
       // 更新圆点显示
       dots.forEach((dot, i) => {
@@ -301,7 +272,7 @@ class MazeGame {
       if (!this.isPlaying) return;
 
       const baseSensitivity = 0.03;
-      const ballSensitivity = this.ballTypes[this.selectedBallType].sensitivity;
+      const ballSensitivity = this.ball.types[this.ball.type].sensitivity;
       const direction = this.currentSpecialLevel === "antiGravity" ? -1 : 1;
       this.ball.acceleration.x =
         event.gamma * baseSensitivity * ballSensitivity * direction;
@@ -337,7 +308,7 @@ class MazeGame {
     this.resetGameState();
     this.resizeCanvas();
     window.addEventListener("resize", () => this.resizeCanvas());
-    this.resetBall();
+    this.ball.reset(this.cellSize);
     this.generateMaze();
 
     if (mode === "challenge") {
@@ -361,41 +332,15 @@ class MazeGame {
     this.pauseButton.style.display = "none";
   }
 
-  resetBall() {
-    // 将小球放置在起点位置
-    this.ball.x = 1.5 * this.cellSize;
-    this.ball.y = 1.5 * this.cellSize;
-    this.ball.velocity = { x: 0, y: 0 };
-    this.ball.acceleration = { x: 0, y: 0 };
-    // 应用选中的小球类型
-    const ballType = this.ballTypes[this.selectedBallType];
-    this.ball.radius = ballType.radius;
-    this.ball.mass = ballType.mass;
-    this.ball.color = ballType.color;
-  }
-
   resizeCanvas() {
     const container = document.getElementById("game-container");
     this.canvas.width = Math.min(container.clientWidth - 20, 400);
     this.canvas.height = Math.min(container.clientHeight * 0.7, 600);
-    this.resetBall();
+    this.ball.reset(this.cellSize);
   }
 
   update() {
-    // 更新速度
-    this.ball.velocity.x += this.ball.acceleration.x;
-    this.ball.velocity.y += this.ball.acceleration.y;
-
-    // 限制速度
-    const maxSpeed = 5; // 设置最大速度
-    const speed = Math.sqrt(
-      this.ball.velocity.x ** 2 + this.ball.velocity.y ** 2
-    );
-    if (speed > maxSpeed) {
-      const scale = maxSpeed / speed;
-      this.ball.velocity.x *= scale;
-      this.ball.velocity.y *= scale;
-    }
+    this.ball.updateVelocity();
 
     // 检测是否与墙壁接触
     let touchingWall = false;
@@ -517,13 +462,7 @@ class MazeGame {
       }
     }
 
-    // 应用速度修改
-    this.ball.velocity.x *= speedMultiplier;
-    this.ball.velocity.y *= speedMultiplier;
-
-    // 更新位置
-    this.ball.x += this.ball.velocity.x;
-    this.ball.y += this.ball.velocity.y;
+    this.ball.updatePosition(speedMultiplier);
 
     // 检查是否到达终点
     if (this.maze[cellY][cellX] === 3) {
@@ -1033,14 +972,7 @@ class MazeGame {
     this.currentSpecialLevel = null;
     this.endX = 0; // 添加终点坐标
     this.endY = 0;
-    // 重置小球状态
-    this.ball = {
-      x: 0,
-      y: 0,
-      radius: 10,
-      velocity: { x: 0, y: 0 },
-      acceleration: { x: 0, y: 0 },
-    };
+    this.ball = new Ball();
     this.hasKey = false;
     this.keyPosition = { x: 0, y: 0 };
     this.fakeExitPosition = { x: 0, y: 0 };
@@ -1089,7 +1021,7 @@ class MazeGame {
       this.ball.x = (this.endX + 0.5) * this.cellSize;
       this.ball.y = (this.endY + 0.5) * this.cellSize;
     } else {
-      this.resetBall(); // 第一关重置小球位置
+      this.ball.reset(this.cellSize); // 第一关重置小球位置
     }
 
     // 随机选择出口位置
