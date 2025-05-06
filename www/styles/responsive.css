@@ -22,19 +22,4 @@
     /* Adjust padding */
     gap: 10px;
   }
-
-  .skill-option button {
-    width: 80px;
-    font-size: 12px;
-  }
-
-  .skill-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .skill-slot {
-    width: 40px;
-    height: 40px;
-  }
 }
