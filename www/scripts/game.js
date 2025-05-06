@@ -71,7 +71,7 @@ class MazeGame {
     this.lastBreadcrumbPosition = { x: 0, y: 0 };
 
     this.gameMode = null; // 'challenge' 或 'infinite'
-    this.timeLeft = 300000; // 30秒，以毫秒为单位
+    this.timeLeft = 30000; // 30秒，以毫秒为单位
     this.countdownElement = document.getElementById("timeLeft");
     this.countdownContainer = document.getElementById("countdown");
     this.modeSelect = document.getElementById("modeSelect");
@@ -144,7 +144,7 @@ class MazeGame {
     };
 
     // 技能槽
-    this.skillSlots = [null, null];
+    this.skillSlots = [null];
     this.activeSkillEffects = {
       timeStopActive: false,
       globalLightActive: false,
@@ -155,8 +155,11 @@ class MazeGame {
     // 技能选择相关
     this.skillSelectionLevel = 6; // 每6关触发技能选择
     this.skillSelectionActive = false;
+    this.selectedSkill = null;
 
     this.init();
+    // TODO: DEBUG
+    // this.showSkillSelection();
   }
 
   init() {
@@ -314,7 +317,6 @@ class MazeGame {
     if (mode === "challenge") {
       this.countdownContainer.style.display = "block";
       document.getElementById("skillSlots").style.display = "block";
-      this.timeLeft = 300000; // 30秒
       this.lastUpdateTime = Date.now();
       this.updateCountdown();
     } else {
@@ -850,7 +852,7 @@ class MazeGame {
     document.getElementById("game-container").style.display = "none";
     this.countdownContainer.style.display = "none";
     // 清空技能槽
-    this.skillSlots = [null, null];
+    this.skillSlots = [null];
     this.updateSkillSlots();
     // 重置游戏状态
     this.resetGameState();
@@ -977,7 +979,7 @@ class MazeGame {
     this.keyPosition = { x: 0, y: 0 };
     this.fakeExitPosition = { x: 0, y: 0 };
     // 重置技能相关状态
-    this.skillSlots = [null, null];
+    this.skillSlots = [null];
     this.activeSkillEffects = {
       timeStopActive: false,
       globalLightActive: false,
@@ -1187,51 +1189,38 @@ class MazeGame {
 
   showSkillSelection() {
     this.skillSelectionActive = true;
+    this.selectedSkill = null;
     this.isPlaying = false; // 暂停游戏
 
-    const skillSelection = document.getElementById("skillSelection");
-
-    // 添加关闭按钮
-    const closeButton = document.createElement("div");
-    closeButton.style.position = "absolute";
-    closeButton.style.top = "10px";
-    closeButton.style.right = "10px";
-    closeButton.style.width = "20px";
-    closeButton.style.height = "20px";
-    closeButton.style.cursor = "pointer";
-    closeButton.style.fontSize = "20px";
-    closeButton.style.lineHeight = "20px";
-    closeButton.style.textAlign = "center";
-    closeButton.innerHTML = "×";
-    closeButton.onclick = () => {
+    document.getElementById("skillCloseButton").onclick = () => {
       skillSelection.style.display = "none";
       this.skillSelectionActive = false;
       this.lastUpdateTime = Date.now();
       this.isPlaying = true;
       requestAnimationFrame(() => this.gameLoop());
     };
-    skillSelection.appendChild(closeButton);
 
-    const options = skillSelection.getElementsByClassName("skill-option");
+    const options = document.getElementById("skillSelection").getElementsByClassName("skill-option");
     const availableSkills = this.getAvailableSkills();
 
     // 更新两个技能选项
     Array.from(options).forEach((option, index) => {
       const skill = availableSkills[index];
       const iconDiv = option.querySelector(".skill-icon");
-      const detailBtn = option.querySelector(".detail-btn");
-      const equipBtn = option.querySelector(".equip-btn");
+      const descriptionDiv = option.querySelector(".skill-description");
 
       // 清除之前的内容
       iconDiv.innerHTML = "";
-
-      // 绘制技能图标
+      descriptionDiv.textContent = skill.description;
       this.drawSkillIcon(iconDiv, skill);
-
-      // 绑定按钮事件
-      detailBtn.onclick = () => this.showSkillDetail(skill);
-      equipBtn.onclick = () => this.equipSkill(skill);
+      option.onclick = () => {
+        this.selectedSkill = skill;
+      };
     });
+
+    document.getElementById("skillSelectButton").onclick = () => {
+      this.equipSkill(this.selectedSkill);
+    };
 
     skillSelection.style.display = "block";
   }
@@ -1389,9 +1378,6 @@ class MazeGame {
     // 清除容器中的现有内容
     container.innerHTML = "";
     container.appendChild(canvas);
-    // 确保canvas填满容器
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
   }
 
   // 辅助方法：绘制箭头
@@ -1411,9 +1397,6 @@ class MazeGame {
     ctx.restore();
   }
 
-  showSkillDetail(skill) {
-    alert(skill.description); // 临时使用alert，后续可以改为更优雅的提示框
-  }
 
   equipSkill(skill) {
     if (!skill || !skill.id) return; // 添加安全检查
