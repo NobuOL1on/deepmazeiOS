@@ -7,7 +7,7 @@ class MazeGame {
     this.ctx = this.canvas.getContext("2d");
     this.startPage = document.getElementById("startPage");
     this.startGameButton = document.getElementById("startGameButton");
-    this.pauseButton = document.getElementById("pauseButton");
+    this.pauseButton = document.getElementById("pause-button");
     this.modeBackButton = document.getElementById("modeBackButton");
     this.backButton = document.getElementById("backButton");
     this.accelHandler;
@@ -17,6 +17,7 @@ class MazeGame {
 
     // 游戏状态
     this.isPlaying = false;
+    this.wasPaused = false;
     this.ball = new Ball();
 
     // 重置游戏状态
@@ -71,7 +72,7 @@ class MazeGame {
     this.lastBreadcrumbPosition = { x: 0, y: 0 };
 
     this.gameMode = null; // 'challenge' 或 'infinite'
-    this.timeLeft = 300000; // 30秒，以毫秒为单位
+    this.timeLeft = 30000; // 30秒，以毫秒为单位
     this.countdownElement = document.getElementById("timeLeft");
     this.countdownContainer = document.getElementById("countdown");
     this.modeSelect = document.getElementById("modeSelect");
@@ -314,7 +315,7 @@ class MazeGame {
     if (mode === "challenge") {
       this.countdownContainer.style.display = "block";
       document.getElementById("skillSlots").style.display = "block";
-      this.timeLeft = 300000; // 30秒
+      this.timeLeft = 30000; // 30秒
       this.lastUpdateTime = Date.now();
       this.updateCountdown();
     } else {
@@ -328,8 +329,12 @@ class MazeGame {
 
   pauseGame() {
     this.isPlaying = false;
-    this.startGameButton.style.display = "block";
-    this.pauseButton.style.display = "none";
+  }
+
+  resumeGame() {
+    this.isPlaying = true;
+    this.wasPaused = true;
+    this.gameLoop();
   }
 
   resizeCanvas() {
@@ -814,19 +819,23 @@ class MazeGame {
     // 更新倒计时
     if (this.gameMode === "challenge" && !this.isGameOver) {
       const currentTime = Date.now();
-      if (this.lastUpdateTime) {
-        // 如果时间停止技能未激活，才减少时间
-        if (!this.activeSkillEffects.timeStopActive) {
-          this.timeLeft -= currentTime - this.lastUpdateTime;
-          this.lastUpdateTime = currentTime; // 只在实际扣除时间时更新lastUpdateTime
-        }
-        // 检查游戏结束条件
-        if (this.timeLeft <= 0) {
-          this.gameOver();
-          return;
-        }
-        this.updateCountdown();
+      if (this.activeSkillEffects.timeStopActive || this.wasPaused) {
+        this.lastUpdateTime = currentTime;
       }
+
+      this.timeLeft -= currentTime - this.lastUpdateTime;
+      this.lastUpdateTime = currentTime;
+
+      // 检查游戏结束条件
+      if (this.timeLeft <= 0) {
+        this.gameOver();
+        return;
+      }
+      this.updateCountdown();
+    }
+
+    if (this.wasPaused) {
+      this.wasPaused = false;
     }
 
     if (!this.isPlaying) return;
@@ -1808,8 +1817,6 @@ document.addEventListener("DOMContentLoaded", () => {
     errorDiv.style.padding = "20px";
     errorDiv.innerHTML = "游戏加载失败，请在系统浏览器中打开";
     document.body.appendChild(errorDiv);
-
-
   }
 
   const ballContainers = document.querySelectorAll(".ball-container");
@@ -1835,8 +1842,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // const pauseButton = document.getElementById("pause-button")
-  // pauseButton.onclick = () => {
-  //   game.pauseGame()
-  // }
+  const pauseButton = document.getElementById("pause-button")
+  const pauseMenu = document.getElementById("pause-menu")
+  const resumeButton = document.getElementById("resume-button")
+  pauseButton.onclick = () => {
+    game.pauseGame()
+    pauseMenu.style.display = "block"
+  }
+
+  resumeButton.onclick = () => {
+    game.resumeGame()
+    pauseMenu.style.display = "none"
+  }
 });
