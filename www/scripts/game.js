@@ -71,7 +71,7 @@ class MazeGame {
     this.lastBreadcrumbPosition = { x: 0, y: 0 };
 
     this.gameMode = null; // 'challenge' 或 'infinite'
-    this.timeLeft = 30000; // 30秒，以毫秒为单位
+    this.timeLeft = 30000000000; // 30秒，以毫秒为单位
     this.countdownElement = document.getElementById("timeLeft");
     this.countdownContainer = document.getElementById("countdown");
     this.modeSelect = document.getElementById("modeSelect");
@@ -314,7 +314,7 @@ class MazeGame {
     if (mode === "challenge") {
       this.countdownContainer.style.display = "block";
       document.getElementById("skillSlots").style.display = "block";
-      this.timeLeft = 30000; // 30秒
+      this.timeLeft = 30000000; // 30秒
       this.lastUpdateTime = Date.now();
       this.updateCountdown();
     } else {
@@ -1053,7 +1053,7 @@ class MazeGame {
     };
 
     // 调整画布大小
-    this.canvas.width = width * this.cellSize;
+    this.canvas.width = width * this.cellSize - 1;
     this.canvas.height = height * this.cellSize;
   }
 

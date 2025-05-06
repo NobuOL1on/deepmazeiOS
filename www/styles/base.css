@@ -11,7 +11,6 @@ body {
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
-  min-height: -webkit-fill-available;
   background-color: #f0f0f0;
   font-family: Arial, sans-serif;
   overflow-x: hidden;
@@ -37,43 +36,4 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-}* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #000;
-    color: white;
-    cursor: pointer;
-}
-
-button:active {
-    background-color: #333;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
 }

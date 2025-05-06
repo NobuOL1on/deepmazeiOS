@@ -62,11 +62,6 @@
   transition: transform 0.3s;
 }
 
-.ball-container img {
-  max-width: 80%;
-  /* Adjust as needed */
-}
-
 .shop-button {
   cursor: pointer;
   flex-shrink: 0;
@@ -90,7 +85,7 @@
   letter-spacing: 2px;
   margin: 10px 0;
   display: none;
-  color: #000;
+  color: white;
 }
 
 #pauseButton {
