@@ -1,0 +1,25 @@
+<svg width="74" height="40" viewBox="0 0 74 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="72" height="38" rx="11" fill="black"/>
+<rect x="1" y="1" width="72" height="38" rx="11" stroke="white" stroke-width="2"/>
+<path d="M22.5 5H25.5L24 35H21L22.5 5Z" fill="white"/>
+<path d="M24 5H25.5L30 35H28.5L24 5Z" fill="white"/>
+<rect x="22.5" y="19.25" width="4.5" height="1.5" fill="white"/>
+<rect x="57" y="5" width="3" height="30" fill="white"/>
+<rect x="60" y="5" width="4.5" height="1.5" fill="white"/>
+<rect x="60" y="19.25" width="4.5" height="1.5" fill="white"/>
+<rect x="60" y="33.5" width="4.5" height="1.5" fill="white"/>
+<path d="M45 8C45 6.34315 46.3431 5 48 5V5V20.75V20.75C46.3431 20.75 45 19.4069 45 17.75V8Z" fill="white"/>
+<path d="M51 19.25V19.25C52.6569 19.25 54 20.5931 54 22.25V32C54 33.6569 52.6569 35 51 35V35V19.25Z" fill="white"/>
+<path d="M51 5V5C52.6569 5 54 6.34315 54 8V14H51V5Z" fill="white"/>
+<path d="M45 26H48V35V35C46.3431 35 45 33.6569 45 32V26Z" fill="white"/>
+<rect x="48" y="5" width="3" height="1.5" fill="white"/>
+<rect x="48" y="19.25" width="3" height="1.5" fill="white"/>
+<rect x="48" y="33.5" width="3" height="1.5" fill="white"/>
+<rect x="9" y="5" width="3" height="30" fill="white"/>
+<rect x="12" y="5" width="3" height="1.5" fill="white"/>
+<rect x="12" y="19.25" width="3" height="1.5" fill="white"/>
+<path d="M15 5V5C16.6569 5 18 6.34315 18 8V17.75C18 19.4069 16.6569 20.75 15 20.75V20.75V5Z" fill="white"/>
+<path d="M33 5H36V35V35C34.3431 35 33 33.6569 33 32V5Z" fill="white"/>
+<path d="M39 5H42V32C42 33.6569 40.6569 35 39 35V35V5Z" fill="white"/>
+<rect x="36" y="33.5" width="3" height="1.5" fill="white"/>
+</svg>

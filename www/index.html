@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles/layout.css">
   <link rel="stylesheet" href="styles/components.css">
   <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/game.css">
 </head>
 
 <body>
@@ -27,7 +28,7 @@
     <img src="img/deepmazelogo.svg" alt="DeepMaze Logo" class="logo-mode">
     <img src="img/timingmode-button-en.svg" id="challengeModeButton" class="mode-button">
     <img src="img/infinitemode-button-en.svg" id="infiniteModeButton" class="mode-button">
-    <div id="ballSelector">
+    <div id="ballSelector" style="gap: 50px">
       <div class="ball-carousel">
         <div class="ball-container">
           <img src="img/selectnormalball-en.svg">
@@ -49,9 +50,21 @@
     <button id="backButton" class="back-button-game">
       Back
     </button>
-    <div id="countdown">
-      <span id="timeLeft">00:30:000</span>
+    <div class="game-header">
+      <div class="left-panel">
+        <div id="pause">
+          <img src="img/pause-button-en.svg" id="pause-button">
+        </div>
+        <div id="level" style="color: white; font-family: monospace;"></div>
+      </div>
+      <div class="right-panel">
+        <div id="purchase" style="height: 20px;"></div>
+        <div id="countdown">
+          <span id="timeLeft" style="font-family: monospace; font-size: smaller;">00:30:000</span>
+        </div>
+      </div>
     </div>
+    
     <canvas id="gameCanvas"></canvas>
     <div id="skillSelection">
       <div class="skill-options-wrapper">

@@ -22,6 +22,9 @@ import selectSmallBallJa from '../img/selectsmallball-ja.svg';
 import shopButtonEn from '../img/shop-button-en.svg';
 import shopButtonZh from '../img/shop-button-zh.svg';
 import shopButtonJa from '../img/shop-button-ja.svg';
+import pauseButtonEn from '../img/pause-button-en.svg'
+import pauseButtonZh from '../img/pause-button-zh.svg'
+import pauseButtonJa from '../img/pause-button-ja.svg'
 
 export function toggleLanguage() {
   const currentLang = document.documentElement.lang;
@@ -42,19 +45,23 @@ export function toggleLanguage() {
   const backButton = document.getElementById('modeBackButton');
   const timingModeButton = document.getElementById('challengeModeButton');
   const infiniteModeButton = document.getElementById('infiniteModeButton');
+  const pauseButton = document.getElementById('pause-button');
 
   if (newLang === 'zh') {
     backButton.src = backButtonZh;
     timingModeButton.src = timingModeButtonZh;
     infiniteModeButton.src = infiniteModeButtonZh;
+    pauseButton.src = pauseButtonZh;
   } else if (newLang === 'ja') {
     backButton.src = backButtonJa;
     timingModeButton.src = timingModeButtonJa;
     infiniteModeButton.src = infiniteModeButtonJa;
+    pauseButton.src = pauseButtonJa;
   } else {
     backButton.src = backButtonEn;
     timingModeButton.src = timingModeButtonEn;
     infiniteModeButton.src = infiniteModeButtonEn;
+    pauseButton.src = pauseButtonEn;
   }
 
   // 更新小球选择图标

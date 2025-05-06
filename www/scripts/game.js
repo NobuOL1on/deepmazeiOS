@@ -71,7 +71,7 @@ class MazeGame {
     this.lastBreadcrumbPosition = { x: 0, y: 0 };
 
     this.gameMode = null; // 'challenge' 或 'infinite'
-    this.timeLeft = 30000000000; // 30秒，以毫秒为单位
+    this.timeLeft = 300000; // 30秒，以毫秒为单位
     this.countdownElement = document.getElementById("timeLeft");
     this.countdownContainer = document.getElementById("countdown");
     this.modeSelect = document.getElementById("modeSelect");
@@ -314,7 +314,7 @@ class MazeGame {
     if (mode === "challenge") {
       this.countdownContainer.style.display = "block";
       document.getElementById("skillSlots").style.display = "block";
-      this.timeLeft = 30000000; // 30秒
+      this.timeLeft = 300000; // 30秒
       this.lastUpdateTime = Date.now();
       this.updateCountdown();
     } else {
@@ -793,21 +793,21 @@ class MazeGame {
     this.ctx.closePath();
 
     // 在页面左上角绘制关卡信息
-    this.ctx.fillStyle = "#fff"; // 改为白色
-    this.ctx.font = "bold 24px Arial";
-    let levelText = `LEVEL ${this.level}`;
-    if (this.currentSpecialLevel) {
-      const specialLevelNames = {
-        fog: "Fog",
-        antiGravity: "Anti-Gravity",
-        lightning: "Lightning",
-        breadcrumb: "Breadcrumb",
-        key: "Key",
-        fakeExit: "Fake Exit",
-      };
-      levelText += ` - ${specialLevelNames[this.currentSpecialLevel]}`;
-    }
-    this.ctx.fillText(levelText, 10, 30);
+    // this.ctx.fillStyle = "#fff"; // 改为白色
+    // this.ctx.font = "bold 24px Arial";
+    // let levelText = `LEVEL ${this.level}`;
+    // if (this.currentSpecialLevel) {
+    //   const specialLevelNames = {
+    //     fog: "Fog",
+    //     antiGravity: "Anti-Gravity",
+    //     lightning: "Lightning",
+    //     breadcrumb: "Breadcrumb",
+    //     key: "Key",
+    //     fakeExit: "Fake Exit",
+    //   };
+    //   levelText += ` - ${specialLevelNames[this.currentSpecialLevel]}`;
+    // }
+    // this.ctx.fillText(levelText, 10, 30);
   }
 
   gameLoop() {
@@ -1784,12 +1784,22 @@ class MazeGame {
       setTimeout(() => indicator.remove(), 300);
     }, 1000);
   }
+
+  getCurrentLevel() {
+    return this.level
+  }
 }
+
 
 // 当页面加载完成后初始化游戏
 document.addEventListener("DOMContentLoaded", () => {
+  let game;
+
   try {
-    new MazeGame();
+    game = new MazeGame();
+
+    const levelDiv = document.getElementById("level")
+    levelDiv.innerHTML = "LEVEL " + game.getCurrentLevel()
   } catch (error) {
     console.error("Game initialization error:", error);
     // 显示友好的错误提示
@@ -1798,6 +1808,8 @@ document.addEventListener("DOMContentLoaded", () => {
     errorDiv.style.padding = "20px";
     errorDiv.innerHTML = "游戏加载失败，请在系统浏览器中打开";
     document.body.appendChild(errorDiv);
+
+
   }
 
   const ballContainers = document.querySelectorAll(".ball-container");
@@ -1822,4 +1834,9 @@ document.addEventListener("DOMContentLoaded", () => {
       container.style.display = "none";
     }
   });
+
+  // const pauseButton = document.getElementById("pause-button")
+  // pauseButton.onclick = () => {
+  //   game.pauseGame()
+  // }
 });
