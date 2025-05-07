@@ -1,5 +1,6 @@
 import { Motion } from "@capacitor/motion";
 import { Ball } from "./ball.js";
+import { getImage } from "./skills.js";
 
 class MazeGame {
   constructor() {
@@ -72,7 +73,7 @@ class MazeGame {
     this.lastBreadcrumbPosition = { x: 0, y: 0 };
 
     this.gameMode = null; // 'challenge' 或 'infinite'
-    this.timeLeft = 30000; // 30秒，以毫秒为单位
+    this.timeLeft = 30000000; // 30秒，以毫秒为单位
     this.countdownElement = document.getElementById("timeLeft");
     this.countdownContainer = document.getElementById("countdown");
     this.modeSelect = document.getElementById("modeSelect");
@@ -87,58 +88,57 @@ class MazeGame {
     this.skills = {
       // 主动技能
       wallPass: {
-        id: "wallPass",
-        type: "active",
+        id: "throughWalls",
+        type: "wallPass",
         name: "Wall Pass",
         uses: 3,
-        icon: "➡️",
         description: "Pass through a wall in the direction closest to gravity",
         effect: this.useWallPass.bind(this),
       },
       timeStop: {
+        id: "timeStop",
         type: "active",
         name: "Time Stop",
         uses: 3,
-        icon: "⏸️",
         description: "Stop countdown for 5 seconds",
         effect: () => this.useTimeStop(),
       },
       globalLight: {
+        id: "globalLight",
         type: "active",
         name: "Global Light",
         uses: 3,
-        icon: "💡",
         description: "Light up the entire maze for 5 seconds",
         effect: () => this.useGlobalLight(),
       },
       teleport: {
+        id: "teleport",
         type: "active",
         name: "Teleport",
         uses: 3,
-        icon: "🔄",
         description:
           "Teleport to a position with shorter straight-line distance to exit",
         effect: () => this.useTeleport(),
       },
       // 被动技能
       speedBoost: {
+        id: "speedBoost",
         type: "passive",
         name: "Speed Boost",
-        icon: "⚡",
         description: "Increase movement speed by 5%",
         effect: () => this.applySpeedBoost(),
       },
       timeBoots: {
+        id: "timeBoots",
         type: "passive",
         name: "Time Boots",
-        icon: "⏱️",
         description: "Gain 0.02s for each cell moved",
         effect: () => this.applyTimeBoots(),
       },
       cornerSlow: {
+        id: "cornerSlow",
         type: "passive",
         name: "Corner Slow",
-        icon: "✚",
         description: "Slow down by 10% at intersections",
         effect: () => this.applyCornerSlow(),
       },
@@ -160,7 +160,7 @@ class MazeGame {
 
     this.init();
     // TODO: DEBUG
-    // this.showSkillSelection();
+    this.showSkillSelection();
   }
 
   init() {
@@ -1223,7 +1223,7 @@ class MazeGame {
       const descriptionDiv = option.querySelector(".skill-description");
 
       // 清除之前的内容
-      iconDiv.innerHTML = "";
+      
       descriptionDiv.textContent = skill.description;
       this.drawSkillIcon(iconDiv, skill);
       option.onclick = () => {
@@ -1239,158 +1239,163 @@ class MazeGame {
   }
 
   drawSkillIcon(container, skill) {
-    const canvas = document.createElement("canvas");
-    canvas.width = 50;
-    canvas.height = 50;
-    container.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
+    let img = document.createElement('img');
+    img.src = getImage(skill);
+    img.width = 60;
+    img.height = 60;
+    container.append(img);
+    // const canvas = document.createElement("canvas");
+    // canvas.width = 50;
+    // canvas.height = 50;
+    // container.appendChild(canvas);
+    // const ctx = canvas.getContext("2d");
 
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = 2;
+    // ctx.strokeStyle = "#000";
+    // ctx.lineWidth = 2;
 
-    // 绘制技能图标
-    switch (skill.id) {
-      case "wallPass":
-        // 三条平行箭头穿过窄平行四边形
-        const arrowWidth = canvas.width * 0.15;
-        const spacing = canvas.width * 0.2;
-        const wallWidth = canvas.width * 0.2; // 原来是 0.6，现在是 0.2
-        const wallStartX = (canvas.width - wallWidth) / 2; // 居中
-        ctx.moveTo(wallStartX, canvas.height * 0.2);
-        ctx.lineTo(wallStartX + wallWidth, canvas.height * 0.2);
-        ctx.lineTo(wallStartX + wallWidth * 0.8, canvas.height * 0.8);
-        ctx.lineTo(wallStartX - wallWidth * 0.2, canvas.height * 0.8);
-        ctx.closePath();
-        ctx.stroke();
+    // // 绘制技能图标
+    // switch (skill.id) {
+    //   case "wallPass":
+    //     // 三条平行箭头穿过窄平行四边形
+    //     const arrowWidth = canvas.width * 0.15;
+    //     const spacing = canvas.width * 0.2;
+    //     const wallWidth = canvas.width * 0.2; // 原来是 0.6，现在是 0.2
+    //     const wallStartX = (canvas.width - wallWidth) / 2; // 居中
+    //     ctx.moveTo(wallStartX, canvas.height * 0.2);
+    //     ctx.lineTo(wallStartX + wallWidth, canvas.height * 0.2);
+    //     ctx.lineTo(wallStartX + wallWidth * 0.8, canvas.height * 0.8);
+    //     ctx.lineTo(wallStartX - wallWidth * 0.2, canvas.height * 0.8);
+    //     ctx.closePath();
+    //     ctx.stroke();
 
-        // 绘制三个箭头
-        for (let i = 0; i < 3; i++) {
-          const y = canvas.height * (0.3 + i * 0.2); // 上中下三个位置
-          this.drawArrow(ctx, canvas.width * 0.3, y, arrowWidth);
-        }
-        break;
+    //     // 绘制三个箭头
+    //     for (let i = 0; i < 3; i++) {
+    //       const y = canvas.height * (0.3 + i * 0.2); // 上中下三个位置
+    //       this.drawArrow(ctx, canvas.width * 0.3, y, arrowWidth);
+    //     }
+    //     break;
 
-      case "timeStop":
-        // 暂停符号
-        const barWidth = canvas.width * 0.15;
-        const barHeight = canvas.height * 0.4;
-        ctx.fillRect(
-          canvas.width * 0.3,
-          canvas.height * 0.3,
-          barWidth,
-          barHeight
-        );
-        ctx.fillRect(
-          canvas.width * 0.6,
-          canvas.height * 0.3,
-          barWidth,
-          barHeight
-        );
-        break;
+    //   case "timeStop":
+    //     // 暂停符号
+    //     const barWidth = canvas.width * 0.15;
+    //     const barHeight = canvas.height * 0.4;
+    //     ctx.fillRect(
+    //       canvas.width * 0.3,
+    //       canvas.height * 0.3,
+    //       barWidth,
+    //       barHeight
+    //     );
+    //     ctx.fillRect(
+    //       canvas.width * 0.6,
+    //       canvas.height * 0.3,
+    //       barWidth,
+    //       barHeight
+    //     );
+    //     break;
 
-      case "globalLight":
-        // 灯泡图案
-        ctx.beginPath();
-        // 灯泡底部
-        ctx.arc(
-          canvas.width / 2,
-          canvas.height * 0.4,
-          canvas.width * 0.25,
-          0,
-          Math.PI * 2
-        );
-        // 灯泡螺纹
-        ctx.moveTo(canvas.width * 0.4, canvas.height * 0.65);
-        ctx.lineTo(canvas.width * 0.6, canvas.height * 0.65);
-        ctx.moveTo(canvas.width * 0.42, canvas.height * 0.7);
-        ctx.lineTo(canvas.width * 0.58, canvas.height * 0.7);
-        ctx.moveTo(canvas.width * 0.45, canvas.height * 0.75);
-        ctx.lineTo(canvas.width * 0.55, canvas.height * 0.75);
-        ctx.stroke();
-        break;
+    //   case "globalLight":
+    //     // 灯泡图案
+    //     ctx.beginPath();
+    //     // 灯泡底部
+    //     ctx.arc(
+    //       canvas.width / 2,
+    //       canvas.height * 0.4,
+    //       canvas.width * 0.25,
+    //       0,
+    //       Math.PI * 2
+    //     );
+    //     // 灯泡螺纹
+    //     ctx.moveTo(canvas.width * 0.4, canvas.height * 0.65);
+    //     ctx.lineTo(canvas.width * 0.6, canvas.height * 0.65);
+    //     ctx.moveTo(canvas.width * 0.42, canvas.height * 0.7);
+    //     ctx.lineTo(canvas.width * 0.58, canvas.height * 0.7);
+    //     ctx.moveTo(canvas.width * 0.45, canvas.height * 0.75);
+    //     ctx.lineTo(canvas.width * 0.55, canvas.height * 0.75);
+    //     ctx.stroke();
+    //     break;
 
-      case "teleport":
-        // 随机传送图标
-        const radius = canvas.width * 0.2;
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-        // 添加箭头
-        this.drawArrow(
-          ctx,
-          canvas.width * 0.3,
-          canvas.height * 0.3,
-          radius,
-          Math.PI * 0.25
-        );
-        this.drawArrow(
-          ctx,
-          canvas.width * 0.7,
-          canvas.height * 0.7,
-          radius,
-          -Math.PI * 0.75
-        );
-        ctx.stroke();
-        break;
+    //   case "teleport":
+    //     // 随机传送图标
+    //     const radius = canvas.width * 0.2;
+    //     ctx.beginPath();
+    //     ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
+    //     // 添加箭头
+    //     this.drawArrow(
+    //       ctx,
+    //       canvas.width * 0.3,
+    //       canvas.height * 0.3,
+    //       radius,
+    //       Math.PI * 0.25
+    //     );
+    //     this.drawArrow(
+    //       ctx,
+    //       canvas.width * 0.7,
+    //       canvas.height * 0.7,
+    //       radius,
+    //       -Math.PI * 0.75
+    //     );
+    //     ctx.stroke();
+    //     break;
 
-      case "speedBoost":
-        // 闪电图标
-        ctx.beginPath();
-        ctx.moveTo(canvas.width * 0.6, canvas.height * 0.2);
-        ctx.lineTo(canvas.width * 0.4, canvas.height * 0.5);
-        ctx.lineTo(canvas.width * 0.5, canvas.height * 0.5);
-        ctx.lineTo(canvas.width * 0.3, canvas.height * 0.8);
-        ctx.lineTo(canvas.width * 0.7, canvas.height * 0.5);
-        ctx.lineTo(canvas.width * 0.5, canvas.height * 0.5);
-        ctx.closePath();
-        ctx.fill();
-        break;
+    //   case "speedBoost":
+    //     // 闪电图标
+    //     ctx.beginPath();
+    //     ctx.moveTo(canvas.width * 0.6, canvas.height * 0.2);
+    //     ctx.lineTo(canvas.width * 0.4, canvas.height * 0.5);
+    //     ctx.lineTo(canvas.width * 0.5, canvas.height * 0.5);
+    //     ctx.lineTo(canvas.width * 0.3, canvas.height * 0.8);
+    //     ctx.lineTo(canvas.width * 0.7, canvas.height * 0.5);
+    //     ctx.lineTo(canvas.width * 0.5, canvas.height * 0.5);
+    //     ctx.closePath();
+    //     ctx.fill();
+    //     break;
 
-      case "timeBoots":
-        // 秒表图案
-        ctx.beginPath();
-        ctx.arc(
-          canvas.width / 2,
-          canvas.height / 2,
-          canvas.width * 0.3,
-          0,
-          Math.PI * 2
-        );
-        // 指针
-        ctx.moveTo(canvas.width / 2, canvas.height / 2);
-        ctx.lineTo(canvas.width * 0.7, canvas.height * 0.5);
-        ctx.stroke();
-        break;
+    //   case "timeBoots":
+    //     // 秒表图案
+    //     ctx.beginPath();
+    //     ctx.arc(
+    //       canvas.width / 2,
+    //       canvas.height / 2,
+    //       canvas.width * 0.3,
+    //       0,
+    //       Math.PI * 2
+    //     );
+    //     // 指针
+    //     ctx.moveTo(canvas.width / 2, canvas.height / 2);
+    //     ctx.lineTo(canvas.width * 0.7, canvas.height * 0.5);
+    //     ctx.stroke();
+    //     break;
 
-      case "cornerSlow":
-        // 十字路口图案
-        const roadWidth = canvas.width * 0.2;
-        ctx.strokeRect(
-          canvas.width / 2 - roadWidth / 2,
-          0,
-          roadWidth,
-          canvas.height
-        );
-        ctx.strokeRect(
-          0,
-          canvas.height / 2 - roadWidth / 2,
-          canvas.width,
-          roadWidth
-        );
-        break;
-    }
+    //   case "cornerSlow":
+    //     // 十字路口图案
+    //     const roadWidth = canvas.width * 0.2;
+    //     ctx.strokeRect(
+    //       canvas.width / 2 - roadWidth / 2,
+    //       0,
+    //       roadWidth,
+    //       canvas.height
+    //     );
+    //     ctx.strokeRect(
+    //       0,
+    //       canvas.height / 2 - roadWidth / 2,
+    //       canvas.width,
+    //       roadWidth
+    //     );
+    //     break;
+    // }
 
-    // 如果是主动技能，显示剩余使用次数
-    if (skill.type === "active" && skill.uses !== undefined) {
-      ctx.fillStyle = "#000";
-      ctx.font = "12px Arial";
-      ctx.textAlign = "right";
-      ctx.textBaseline = "bottom";
-      ctx.fillText(skill.uses, canvas.width - 2, canvas.height - 2);
-    }
+    // // 如果是主动技能，显示剩余使用次数
+    // if (skill.type === "active" && skill.uses !== undefined) {
+    //   ctx.fillStyle = "#000";
+    //   ctx.font = "12px Arial";
+    //   ctx.textAlign = "right";
+    //   ctx.textBaseline = "bottom";
+    //   ctx.fillText(skill.uses, canvas.width - 2, canvas.height - 2);
+    // }
 
-    // 清除容器中的现有内容
-    container.innerHTML = "";
-    container.appendChild(canvas);
+    // // 清除容器中的现有内容
+    // container.innerHTML = "";
+    // container.appendChild(canvas);
   }
 
   // 辅助方法：绘制箭头

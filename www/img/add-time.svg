@@ -1,0 +1,46 @@
+<svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="2" width="74" height="74" rx="12" fill="white"/>
+<rect x="2" y="2" width="74" height="74" rx="12" stroke="black" stroke-width="4"/>
+<mask id="path-2-inside-1_382_4597" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M62 27H52V34H45V44H52V51H62V44H69V34H62V27Z"/>
+</mask>
+<path d="M52 27V25H50V27H52ZM62 27H64V25H62V27ZM52 34V36H54V34H52ZM45 34V32H43V34H45ZM45 44H43V46H45V44ZM52 44H54V42H52V44ZM52 51H50V53H52V51ZM62 51V53H64V51H62ZM62 44V42H60V44H62ZM69 44V46H71V44H69ZM69 34H71V32H69V34ZM62 34H60V36H62V34ZM52 29H62V25H52V29ZM54 34V27H50V34H54ZM45 36H52V32H45V36ZM47 44V34H43V44H47ZM52 42H45V46H52V42ZM54 51V44H50V51H54ZM62 49H52V53H62V49ZM60 44V51H64V44H60ZM69 42H62V46H69V42ZM67 34V44H71V34H67ZM62 36H69V32H62V36ZM60 27V34H64V27H60Z" fill="black" mask="url(#path-2-inside-1_382_4597)"/>
+<rect x="16" y="12" width="21" height="4" fill="black"/>
+<rect x="16" y="19" width="21" height="4" fill="black"/>
+<rect x="16" y="62" width="21" height="4" fill="black"/>
+<rect x="29" y="38" width="2" height="2" fill="black"/>
+<rect x="20" y="60" width="2" height="1" fill="black"/>
+<rect x="22" y="59" width="1" height="1" fill="black"/>
+<rect x="23" y="58" width="1" height="1" fill="black"/>
+<rect x="31" y="60" width="2" height="1" fill="black"/>
+<rect x="30" y="59" width="1" height="1" fill="black"/>
+<rect x="29" y="58" width="1" height="1" fill="black"/>
+<rect x="28" y="57" width="1" height="1" fill="black"/>
+<rect x="27" y="56" width="1" height="1" fill="black"/>
+<rect x="25" y="56" width="1" height="1" fill="black"/>
+<rect x="26" y="55" width="1" height="1" fill="black"/>
+<rect x="26" y="49" width="1" height="2" fill="black"/>
+<rect x="21" y="31" width="11" height="1" fill="black"/>
+<rect x="24" y="57" width="1" height="1" fill="black"/>
+<rect x="29" y="44" width="2" height="2" fill="black"/>
+<rect x="24" y="40" width="2" height="4" fill="black"/>
+<rect x="27" y="40" width="2" height="4" fill="black"/>
+<rect x="22" y="38" width="2" height="2" fill="black"/>
+<rect x="22" y="44" width="2" height="2" fill="black"/>
+<rect x="31" y="34" width="2" height="4" fill="black"/>
+<rect x="31" y="46" width="2" height="4" fill="black"/>
+<rect x="20" y="34" width="2" height="4" fill="black"/>
+<rect x="20" y="46" width="2" height="4" fill="black"/>
+<rect x="14" y="14" width="2" height="12" fill="black"/>
+<rect x="14" y="58" width="2" height="6" fill="black"/>
+<rect x="37" y="14" width="2" height="12" fill="black"/>
+<rect x="37" y="58" width="2" height="6" fill="black"/>
+<rect x="35" y="26" width="2" height="4" fill="black"/>
+<rect x="35" y="54" width="2" height="4" fill="black"/>
+<rect x="16" y="26" width="2" height="4" fill="black"/>
+<rect x="16" y="54" width="2" height="4" fill="black"/>
+<rect x="18" y="30" width="2" height="4" fill="black"/>
+<rect x="18" y="50" width="2" height="4" fill="black"/>
+<rect x="33" y="30" width="2" height="4" fill="black"/>
+<rect x="33" y="50" width="2" height="4" fill="black"/>
+</svg>
